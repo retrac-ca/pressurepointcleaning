@@ -81,8 +81,18 @@ textarea {
 }
 
 .brand {
-  display: inline-grid;
-  gap: 0.15rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.brand-logo {
+  width: 44px;
+  height: auto;
+  border-radius: 12px;
+  object-fit: contain;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.4rem;
 }
 
 .brand-name {
@@ -424,6 +434,26 @@ button:focus-visible {
 
 .reviews-link {
   margin-top: 1.75rem;
+}
+
+.book-now-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem;
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, rgba(36, 60, 106, 0.18), rgba(10, 18, 34, 0.96));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.book-now-panel p {
+  color: var(--text-muted);
+  line-height: 1.8;
+}
+
+.btn-book-now {
+  min-width: 180px;
 }
 
 .pricing-grid {

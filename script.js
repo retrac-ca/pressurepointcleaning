@@ -25,4 +25,9 @@ document.addEventListener("DOMContentLoaded", () => {
     );
     revealItems.forEach((item) => observer.observe(item));
   }
+
+  document.querySelectorAll("img").forEach((img) => {
+    img.addEventListener("contextmenu", (event) => event.preventDefault());
+    img.addEventListener("dragstart", (event) => event.preventDefault());
+  });
 });
