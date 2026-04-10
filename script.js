@@ -21,13 +21,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function initTheme() {
     const saved = localStorage.getItem(STORAGE_KEY);
-    const theme = saved || detectTimeBasedTheme();
+    const theme = saved === "dark" || saved === "light" ? saved : detectTimeBasedTheme();
+    if (saved && theme !== saved) {
+      localStorage.removeItem(STORAGE_KEY);
+    }
     applyTheme(theme);
   }
 
   if (themeToggle) {
     themeToggle.addEventListener("click", () => {
-      const current = html.getAttribute("data-theme") || "dark";
+      const current = html.getAttribute("data-theme") || detectTimeBasedTheme();
       const next = current === "dark" ? "light" : "dark";
       localStorage.setItem(STORAGE_KEY, next);
       applyTheme(next);
