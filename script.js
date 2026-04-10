@@ -1,11 +1,49 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const toggle = document.getElementById("nav-toggle");
+  // ── Theme switcher with time-of-day detection ────────────────────────
+  const html = document.documentElement;
+  const themeToggle = document.getElementById("theme-toggle");
+  const STORAGE_KEY = "ppc-theme-preference";
+
+  function detectTimeBasedTheme() {
+    const hour = new Date().getHours();
+    return hour >= 20 || hour < 6 ? "dark" : "light";
+  }
+
+  function applyTheme(theme) {
+    if (theme === "dark") {
+      html.setAttribute("data-theme", "dark");
+      themeToggle.textContent = "☀️"; // sun emoji for dark mode
+    } else {
+      html.setAttribute("data-theme", "light");
+      themeToggle.textContent = "🌙"; // moon emoji for light mode
+    }
+  }
+
+  function initTheme() {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    const theme = saved || detectTimeBasedTheme();
+    applyTheme(theme);
+  }
+
+  if (themeToggle) {
+    themeToggle.addEventListener("click", () => {
+      const current = html.getAttribute("data-theme") || "dark";
+      const next = current === "dark" ? "light" : "dark";
+      localStorage.setItem(STORAGE_KEY, next);
+      applyTheme(next);
+    });
+  }
+
+  initTheme();
+
+  // ── Mobile Navigation ───────────────────────────────────────────────
+  const hamburger = document.getElementById("nav-toggle");
   const menu = document.getElementById("mobile-menu");
 
-  if (toggle && menu) {
-    toggle.addEventListener("click", () => {
+  if (hamburger && menu) {
+    hamburger.addEventListener("click", () => {
       const isOpen = menu.classList.toggle("open");
-      toggle.setAttribute("aria-expanded", isOpen.toString());
+      hamburger.setAttribute("aria-expanded", isOpen.toString());
       menu.setAttribute("aria-hidden", (!isOpen).toString());
     });
 
@@ -13,8 +51,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (closeButton) {
       closeButton.addEventListener("click", () => {
         menu.classList.remove("open");
-        toggle.classList.remove("open");
-        toggle.setAttribute("aria-expanded", "false");
+        hamburger.classList.remove("open");
+        hamburger.setAttribute("aria-expanded", "false");
         menu.setAttribute("aria-hidden", "true");
       });
     }
