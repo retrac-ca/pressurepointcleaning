@@ -87,12 +87,55 @@ textarea {
 }
 
 .brand-logo {
-  width: 44px;
+  width: 64px;
   height: auto;
-  border-radius: 12px;
+  border-radius: 16px;
   object-fit: contain;
   background: rgba(255, 255, 255, 0.05);
-  padding: 0.4rem;
+  padding: 0.45rem;
+}
+
+.brand-logo-header {
+  width: 84px;
+}
+
+.brand-logo-footer {
+  width: 52px;
+}
+
+.hero-brand-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin: 1.25rem 0 1.5rem;
+  padding: 0.75rem 0.95rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hero-badge-logo {
+  width: 42px;
+  height: auto;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.55rem;
+}
+
+.hero-brand-badge span {
+  color: var(--text);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.footer-branding {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.footer-branding p {
+  margin: 0;
 }
 
 .brand-name {
@@ -180,6 +223,22 @@ button:focus-visible {
   display: flex;
 }
 
+.mobile-close {
+  align-self: flex-end;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: var(--text);
+  padding: 0.65rem 1rem;
+  border-radius: 999px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.mobile-close:hover,
+.mobile-close:focus-visible {
+  background: rgba(255, 255, 255, 0.08);
+}
+
 .mobile-menu a {
   color: var(--text);
   padding: 0.75rem 0;
@@ -205,6 +264,20 @@ button:focus-visible {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.15em;
+}
+
+.hero-price-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--accent), #1686ff);
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 900;
+  padding: 0.75rem 1.25rem;
+  border-radius: 999px;
+  margin: 1rem 0;
+  box-shadow: 0 12px 28px rgba(60, 141, 255, 0.32);
 }
 
 .hero h1 {
@@ -273,10 +346,36 @@ button:focus-visible {
 
 .trust-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1rem;
   align-items: center;
   color: var(--text-muted);
+}
+
+.promise-grid,
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.promise-card,
+.process-card {
+  padding: 1.75rem;
+  border-radius: var(--radius);
+  background: var(--surface);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.promise-card h3,
+.process-card h3 {
+  margin-bottom: 0.85rem;
+}
+
+.promise-card p,
+.process-card p {
+  color: var(--text-muted);
+  line-height: 1.8;
 }
 
 .section {
@@ -456,6 +555,10 @@ button:focus-visible {
   min-width: 180px;
 }
 
+#before-after {
+  display: none;
+}
+
 .pricing-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
@@ -605,7 +708,9 @@ button:focus-visible {
   .reviews-grid,
   .pricing-grid,
   .contact-grid,
-  .trust-grid {
+  .trust-grid,
+  .promise-grid,
+  .process-grid {
     grid-template-columns: 1fr;
   }
 
@@ -619,6 +724,11 @@ button:focus-visible {
     padding: 0.85rem 0;
   }
 
+  .header-grid {
+    grid-template-columns: 1fr auto;
+    gap: 0.75rem;
+  }
+
   .site-nav,
   .header-action {
     display: none;
@@ -629,7 +739,8 @@ button:focus-visible {
   }
 
   .mobile-menu {
-    display: flex;
+    display: none;
+    width: 100%;
   }
 
   .hero {
@@ -638,6 +749,18 @@ button:focus-visible {
 
   .hero-card img {
     height: 320px;
+  }
+
+  .book-now-panel,
+  .contact-grid,
+  .footer-grid,
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-brand-badge {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .sticky-call {
@@ -650,7 +773,35 @@ button:focus-visible {
     font-size: 2.5rem;
   }
 
-  .button-group {
+  .hero-actions {
     flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-actions .btn,
+  .btn-book-now {
+    width: 100%;
+  }
+
+  .book-now-panel,
+  .contact-grid,
+  .footer-grid,
+  .stats-grid,
+  .trust-grid,
+  .promise-grid,
+  .process-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-card img {
+    height: auto;
+  }
+
+  .brand-logo-header {
+    width: 62px;
+  }
+
+  .site-header {
+    padding: 0.75rem 0;
   }
 }

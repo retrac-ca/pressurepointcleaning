@@ -8,6 +8,16 @@ document.addEventListener("DOMContentLoaded", () => {
       toggle.setAttribute("aria-expanded", isOpen.toString());
       menu.setAttribute("aria-hidden", (!isOpen).toString());
     });
+
+    const closeButton = document.getElementById("mobile-close");
+    if (closeButton) {
+      closeButton.addEventListener("click", () => {
+        menu.classList.remove("open");
+        toggle.classList.remove("open");
+        toggle.setAttribute("aria-expanded", "false");
+        menu.setAttribute("aria-hidden", "true");
+      });
+    }
   }
 
   const revealItems = document.querySelectorAll(".reveal");
