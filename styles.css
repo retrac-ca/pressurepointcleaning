@@ -871,4 +871,8 @@ button:focus-visible {
   .site-header {
     padding: 0.75rem 0;
   }
+
+  .badges-grid span {
+    border-radius: 14px;
+  }
 }
