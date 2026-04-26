@@ -235,6 +235,11 @@ button {
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+[data-theme="light"] .btn-secondary {
+  background: rgba(37, 99, 235, 0.08);
+  border-color: rgba(37, 99, 235, 0.14);
+}
+
 .btn:hover,
 button:hover,
 .btn:focus-visible,
@@ -417,6 +422,15 @@ button:focus-visible {
   gap: 1rem;
   align-items: center;
   color: var(--text-muted);
+}
+
+.trust-btn {
+  width: min(100%, 180px);
+  min-height: 48px;
+  padding: 0.8rem 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .promise-grid,
@@ -609,13 +623,18 @@ button:focus-visible {
   gap: 1.5rem;
   padding: 2rem;
   border-radius: var(--radius);
-  background: linear-gradient(180deg, rgba(36, 60, 106, 0.18), rgba(10, 18, 34, 0.96));
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
 }
 
 .book-now-panel p {
   color: var(--text-muted);
   line-height: 1.8;
+}
+
+.book-now-panel strong {
+  color: var(--text);
 }
 
 .btn-book-now {
@@ -634,7 +653,7 @@ button:focus-visible {
   display: block;
   margin: 1rem 0;
   font-size: 2.1rem;
-  color: #fff;
+  color: var(--text);
 }
 
 .contact-grid {
@@ -659,11 +678,17 @@ button:focus-visible {
 .quote-form select,
 .quote-form textarea {
   width: 100%;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border);
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.04);
   color: var(--text);
   padding: 0.95rem 1rem;
+}
+
+[data-theme="light"] .quote-form input,
+[data-theme="light"] .quote-form select,
+[data-theme="light"] .quote-form textarea {
+  background: rgba(255, 255, 255, 0.72);
 }
 
 .quote-form input:focus,
@@ -684,8 +709,9 @@ button:focus-visible {
   gap: 1rem;
   padding: 1.75rem;
   border-radius: var(--radius);
-  background: linear-gradient(180deg, rgba(10, 19, 34, 0.95), rgba(8, 14, 24, 0.95));
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
 }
 
 .contact-panel div {
@@ -709,7 +735,7 @@ button:focus-visible {
   margin-top: 1rem;
   padding: 1rem;
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--accent-soft);
   color: var(--text-muted);
 }
 
@@ -846,7 +872,8 @@ button:focus-visible {
   }
 
   .hero-actions .btn,
-  .btn-book-now {
+  .btn-book-now,
+  .trust-btn {
     width: 100%;
   }
 
