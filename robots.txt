@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://pressurepointcleaning.ca/sitemap.xml
