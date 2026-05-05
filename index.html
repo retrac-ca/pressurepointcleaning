@@ -349,24 +349,25 @@
             <input type="hidden" name="form_key" value="hlc_ppc_secure_2026" />
             <input type="text" name="_honey" class="form-honey" tabindex="-1" autocomplete="off" aria-hidden="true" />
             <label>
-              Name
-              <input type="text" name="name" autocomplete="name" required placeholder="Your name" />
+              Full Name:
+              <input type="text" name="name" autocomplete="name" required placeholder="Your full name" />
             </label>
             <label>
-              Email
+              Email Address:
               <input type="email" name="email" autocomplete="email" required placeholder="you@example.com" />
             </label>
             <label>
-              Phone
+              Phone Number:
               <input type="tel" name="phone" autocomplete="tel" required placeholder="506-406-8787" />
             </label>
             <label>
-              Town or service area
-              <input type="text" name="service_area" autocomplete="address-level2" required placeholder="Grand Falls, Edmundston, Saint-Andre..." />
+              Address or GPS Coordinates:
+              <input type="text" name="service_area" autocomplete="street-address" required placeholder="Street address, town, or GPS coordinates" />
             </label>
             <label>
-              Service needed
+              Services Needed:
               <select name="service_needed" required>
+                <option value="" selected disabled>Select a service</option>
                 <option value="House Wash">House Wash</option>
                 <option value="Driveway Cleaning">Driveway Cleaning</option>
                 <option value="Deck & Fence">Deck & Fence</option>
@@ -375,13 +376,13 @@
               </select>
             </label>
             <label>
-              Message
+              Additional Details:
               <textarea name="message" rows="5" placeholder="Tell us about your property, surfaces to clean, stains or buildup, and ideal timing." required></textarea>
             </label>
             <p class="form-note">Have photos? Mention them in your message and we can request them when we reply.</p>
             <p class="form-note privacy-note">Your information is only used to respond to your quote request. Read our <a href="/privacy">privacy policy</a>.</p>
             <p class="form-note" id="ppc-form-success" style="display:none;"></p>
-            <p class="form-note" id="ppc-form-error" style="display:none;"></p>
+            <p class="form-note form-error" id="ppc-form-error" aria-live="polite" style="display:none;"></p>
             <button class="btn btn-primary" type="submit">Send quote request</button>
           </form>
           <script>
@@ -393,8 +394,37 @@
 
               form.dataset.submitHandlerAttached = "true";
 
+              const errorMessage = document.getElementById("ppc-form-error");
+              const requiredMessage = "Please fill out all required fields before sending your quote request.";
+
+              const showRequiredMessage = () => {
+                if (!errorMessage) return;
+                errorMessage.textContent = requiredMessage;
+                errorMessage.style.display = "block";
+              };
+
+              const hideRequiredMessage = () => {
+                if (!errorMessage) return;
+                errorMessage.textContent = "";
+                errorMessage.style.display = "none";
+              };
+
+              form.addEventListener("invalid", showRequiredMessage, true);
+              form.addEventListener("input", () => {
+                if (form.checkValidity()) hideRequiredMessage();
+              });
+              form.addEventListener("change", () => {
+                if (form.checkValidity()) hideRequiredMessage();
+              });
+
               form.addEventListener("submit", async (e) => {
                 e.preventDefault();
+
+                if (!form.checkValidity()) {
+                  showRequiredMessage();
+                  form.reportValidity();
+                  return;
+                }
 
                 const formData = new FormData(form);
                 const submitButton = form.querySelector('button[type="submit"]');
@@ -414,7 +444,12 @@
                   form.reset();
                   window.location.assign("/thank-you.html");
                 } catch (err) {
-                  alert("Something went wrong. Please call 506-406-8787.");
+                  if (errorMessage) {
+                    errorMessage.textContent = "Something went wrong. Please call 506-406-8787.";
+                    errorMessage.style.display = "block";
+                  } else {
+                    alert("Something went wrong. Please call 506-406-8787.");
+                  }
                   if (submitButton) {
                     submitButton.disabled = false;
                     submitButton.textContent = "Send quote request";

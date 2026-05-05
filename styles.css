@@ -730,6 +730,20 @@ button:focus-visible {
   font-weight: 700;
 }
 
+.form-error {
+  margin-top: 0;
+  padding: 0.85rem 1rem;
+  border: 1px solid rgba(255, 107, 107, 0.32);
+  border-radius: 14px;
+  background: rgba(255, 107, 107, 0.1);
+  color: #ffb4b4;
+  font-weight: 700;
+}
+
+[data-theme="light"] .form-error {
+  color: #a52828;
+}
+
 .form-submit-frame {
   position: absolute;
   width: 1px;
