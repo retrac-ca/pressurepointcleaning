@@ -183,14 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         form.reset();
-
-        if (successMessage) {
-          successMessage.textContent =
-            "Thanks! Your request has been submitted. We'll get back to you as soon as possible.";
-          successMessage.style.display = "block";
-        } else {
-          alert("Thanks! Your request has been submitted.");
-        }
+        window.location.assign("/thank-you.html");
       } catch (error) {
         if (errorMessage) {
           errorMessage.textContent =
