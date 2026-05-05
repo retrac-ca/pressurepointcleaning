@@ -344,29 +344,29 @@
           <p>Fill out the form and we will receive your quote details directly. Or call 506-406-8787 now.</p>
         </div>
         <div class="container contact-grid reveal">
-          <form class="quote-form" id="ppc-form" method="POST" target="ppc-submit-frame" action="https://script.google.com/macros/s/AKfycbweIGdAp46cGeZRXxtxUmo8Q7gncwnmj-ulnchZFN3uD7rstACJ6K2op9cbOPCrQrId/exec">
+          <form class="quote-form" id="ppc-form" method="POST" action="https://script.google.com/macros/s/AKfycbyjgGvPrKDsi6i8uDoP4Ykta_w0WbCfKMymXhxGn5Yt-7gBQGri0tvu0Tq9tL_U9mED/exec">
             <input type="hidden" name="business" value="PPC" />
             <input type="hidden" name="form_key" value="hlc_ppc_secure_2026" />
             <input type="text" name="_honey" class="form-honey" tabindex="-1" autocomplete="off" aria-hidden="true" />
             <label>
               Full Name:
-              <input type="text" name="full_name" autocomplete="name" required placeholder="Your full name" />
+              <input type="text" name="Full Name" autocomplete="name" required placeholder="Your full name" />
             </label>
             <label>
               Email Address:
-              <input type="email" name="email" autocomplete="email" required placeholder="you@example.com" />
+              <input type="email" name="Email Address" autocomplete="email" required placeholder="you@example.com" />
             </label>
             <label>
               Phone Number:
-              <input type="tel" name="phone" autocomplete="tel" required placeholder="506-406-8787" />
+              <input type="tel" name="Phone Number" autocomplete="tel" required placeholder="506-406-8787" />
             </label>
             <label>
               Address or GPS Coordinates:
-              <input type="text" name="address" autocomplete="street-address" required placeholder="Street address, town, or GPS coordinates" />
+              <input type="text" name="Address or GPS Coordinates" autocomplete="street-address" required placeholder="Street address, town, or GPS coordinates" />
             </label>
             <label>
               Services Needed:
-              <select name="services_needed" required>
+              <select name="Services Needed" required>
                 <option value="" selected disabled>Select a service</option>
                 <option value="House Wash">House Wash</option>
                 <option value="Driveway Cleaning">Driveway Cleaning</option>
@@ -377,89 +377,15 @@
             </label>
             <label>
               Additional Details:
-              <textarea name="additional_details" rows="5" placeholder="Tell us what you need cleaned, problem areas, stains, buildup, timing, or anything else we should know."></textarea>
+              <textarea name="Additional Details" rows="5" placeholder="Tell us what you need cleaned, problem areas, stains, buildup, timing, or anything else we should know."></textarea>
             </label>
             <p class="form-note">Tell us what you need cleaned, problem areas, stains, buildup, timing, or anything else we should know.</p>
             <p class="form-note">Have photos? Mention them in your message and we can request them when we reply.</p>
             <p class="form-note privacy-note">Your information is only used to respond to your quote request. Read our <a href="/privacy">privacy policy</a>.</p>
-            <p class="form-note" id="ppc-form-success" style="display:none;"></p>
+            <p class="form-note form-success" id="ppc-form-success" style="display:none;"></p>
             <p class="form-note form-error" id="ppc-form-error" aria-live="polite" style="display:none;"></p>
             <button class="btn btn-primary" type="submit">Send quote request</button>
           </form>
-          <script>
-            (() => {
-              const form = document.getElementById("ppc-form");
-
-              if (!form) return;
-              if (form.dataset.submitHandlerAttached === "true") return;
-
-              form.dataset.submitHandlerAttached = "true";
-
-              const errorMessage = document.getElementById("ppc-form-error");
-              const requiredMessage = "Please fill out all required fields before sending your quote request.";
-
-              const showRequiredMessage = () => {
-                if (!errorMessage) return;
-                errorMessage.textContent = requiredMessage;
-                errorMessage.style.display = "block";
-              };
-
-              const hideRequiredMessage = () => {
-                if (!errorMessage) return;
-                errorMessage.textContent = "";
-                errorMessage.style.display = "none";
-              };
-
-              form.addEventListener("invalid", showRequiredMessage, true);
-              form.addEventListener("input", () => {
-                if (form.checkValidity()) hideRequiredMessage();
-              });
-              form.addEventListener("change", () => {
-                if (form.checkValidity()) hideRequiredMessage();
-              });
-
-              form.addEventListener("submit", async (e) => {
-                e.preventDefault();
-
-                if (!form.checkValidity()) {
-                  showRequiredMessage();
-                  form.reportValidity();
-                  return;
-                }
-
-                const formData = new FormData(form);
-                const submitButton = form.querySelector('button[type="submit"]');
-
-                if (submitButton) {
-                  submitButton.disabled = true;
-                  submitButton.textContent = "Sending...";
-                }
-
-                try {
-                  await fetch(form.action, {
-                    method: "POST",
-                    body: formData,
-                    mode: "no-cors",
-                  });
-
-                  form.reset();
-                  window.location.assign("/thank-you.html");
-                } catch (err) {
-                  if (errorMessage) {
-                    errorMessage.textContent = "Something went wrong. Please call 506-406-8787.";
-                    errorMessage.style.display = "block";
-                  } else {
-                    alert("Something went wrong. Please call 506-406-8787.");
-                  }
-                  if (submitButton) {
-                    submitButton.disabled = false;
-                    submitButton.textContent = "Send quote request";
-                  }
-                }
-              });
-            })();
-          </script>
-          <iframe class="form-submit-frame" name="ppc-submit-frame" title="PPC form submission"></iframe>
           <div class="contact-panel">
             <div>
               <span class="panel-label">Call</span>

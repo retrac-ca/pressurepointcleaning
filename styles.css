@@ -730,6 +730,16 @@ button:focus-visible {
   font-weight: 700;
 }
 
+.form-success {
+  margin-top: 0;
+  padding: 0.85rem 1rem;
+  border: 1px solid rgba(80, 220, 160, 0.34);
+  border-radius: 14px;
+  background: rgba(80, 220, 160, 0.12);
+  color: #baf8d8;
+  font-weight: 700;
+}
+
 .form-error {
   margin-top: 0;
   padding: 0.85rem 1rem;
@@ -744,13 +754,8 @@ button:focus-visible {
   color: #a52828;
 }
 
-.form-submit-frame {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  border: 0;
-  opacity: 0;
-  pointer-events: none;
+[data-theme="light"] .form-success {
+  color: #126c3f;
 }
 
 .form-honey {

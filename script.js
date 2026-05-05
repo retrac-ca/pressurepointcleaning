@@ -138,4 +138,73 @@ document.addEventListener("DOMContentLoaded", () => {
     img.addEventListener("contextmenu", (event) => event.preventDefault());
     img.addEventListener("dragstart", (event) => event.preventDefault());
   });
+
+  const forms = document.querySelectorAll("#hlc-form, #ppc-form");
+
+  forms.forEach((form) => {
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const formData = new FormData(form);
+      const submitButton = form.querySelector('button[type="submit"]');
+      const originalButtonText = submitButton ? submitButton.textContent : "";
+
+      const successMessage =
+        form.querySelector(".form-success") ||
+        document.querySelector(`#${form.id}-success`);
+
+      const errorMessage =
+        form.querySelector(".form-error") ||
+        document.querySelector(`#${form.id}-error`);
+
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = "Sending...";
+      }
+
+      if (successMessage) {
+        successMessage.style.display = "none";
+      }
+
+      if (errorMessage) {
+        errorMessage.style.display = "none";
+      }
+
+      try {
+        const response = await fetch(form.action, {
+          method: "POST",
+          body: formData,
+        });
+
+        const result = await response.json();
+
+        if (!result.success) {
+          throw new Error(result.error || "Submission failed");
+        }
+
+        form.reset();
+
+        if (successMessage) {
+          successMessage.textContent =
+            "Thanks! Your request has been submitted. We'll get back to you as soon as possible.";
+          successMessage.style.display = "block";
+        } else {
+          alert("Thanks! Your request has been submitted.");
+        }
+      } catch (error) {
+        if (errorMessage) {
+          errorMessage.textContent =
+            "Something went wrong. Please call or text 506-406-8787.";
+          errorMessage.style.display = "block";
+        } else {
+          alert("Something went wrong. Please call or text 506-406-8787.");
+        }
+      } finally {
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.textContent = originalButtonText;
+        }
+      }
+    });
+  });
 });
