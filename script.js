@@ -63,6 +63,54 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  const ppcForm = document.querySelector("#ppc-form");
+
+  if (ppcForm) {
+    ppcForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const formData = new FormData(ppcForm);
+
+      const successMessage = document.querySelector("#ppc-form-success");
+      const errorMessage = document.querySelector("#ppc-form-error");
+
+      try {
+        const response = await fetch(ppcForm.action, {
+          method: "POST",
+          body: formData,
+        });
+
+        const result = await response.json();
+
+        if (!result.success) {
+          throw new Error(result.error || "Submission failed");
+        }
+
+        ppcForm.reset();
+
+        if (successMessage) {
+          successMessage.textContent =
+            "Thanks! Your request has been submitted. We'll get back to you as soon as possible.";
+          successMessage.style.display = "block";
+        }
+
+        if (errorMessage) {
+          errorMessage.style.display = "none";
+        }
+      } catch (error) {
+        if (errorMessage) {
+          errorMessage.textContent =
+            "Something went wrong. Please call or text 506-406-8787.";
+          errorMessage.style.display = "block";
+        }
+
+        if (successMessage) {
+          successMessage.style.display = "none";
+        }
+      }
+    });
+  }
+
   const backToTop = document.getElementById("back-to-top");
 
   function updateBackToTop() {

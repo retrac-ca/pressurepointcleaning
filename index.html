@@ -344,10 +344,9 @@
           <p>Fill out the form and we will receive your quote details directly. Or call 506-406-8787 now.</p>
         </div>
         <div class="container contact-grid reveal">
-          <form class="quote-form" id="quote-form" action="https://formsubmit.co/info@pressurepointcleaning.ca" method="POST">
-            <input type="hidden" name="_subject" value="New Pressure Point Cleaning quote request" />
-            <input type="hidden" name="_template" value="table" />
-            <input type="hidden" name="_next" value="https://pressurepointcleaning.ca/" />
+          <form class="quote-form" id="ppc-form" method="POST" action="https://script.google.com/macros/s/AKfycbw01UAvY0ZqqUjUsaXX0ZXLePeQJUnYf_aTn86TPiCFRpUHgpBep-mmtxXLaW5DFEvo/exec">
+            <input type="hidden" name="business" value="PPC" />
+            <input type="hidden" name="form_key" value="hlc_ppc_secure_2026" />
             <input type="text" name="_honey" class="form-honey" tabindex="-1" autocomplete="off" aria-hidden="true" />
             <label>
               Name
@@ -363,11 +362,11 @@
             </label>
             <label>
               Town or service area
-              <input type="text" name="location" autocomplete="address-level2" required placeholder="Grand Falls, Edmundston, Saint-Andre..." />
+              <input type="text" name="service_area" autocomplete="address-level2" required placeholder="Grand Falls, Edmundston, Saint-Andre..." />
             </label>
             <label>
               Service needed
-              <select name="service" required>
+              <select name="service_needed" required>
                 <option value="House Wash">House Wash</option>
                 <option value="Driveway Cleaning">Driveway Cleaning</option>
                 <option value="Deck & Fence">Deck & Fence</option>
@@ -381,6 +380,8 @@
             </label>
             <p class="form-note">Have photos? Mention them in your message and we can request them when we reply.</p>
             <p class="form-note privacy-note">Your information is only used to respond to your quote request. Read our <a href="/privacy">privacy policy</a>.</p>
+            <p class="form-note" id="ppc-form-success" style="display:none;"></p>
+            <p class="form-note" id="ppc-form-error" style="display:none;"></p>
             <button class="btn btn-primary" type="submit">Send quote request</button>
           </form>
           <div class="contact-panel">
