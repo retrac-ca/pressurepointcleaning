@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=1.2" />
+  <link rel="stylesheet" href="styles.css?v=1.3" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -344,7 +344,7 @@
           <p>Fill out the form and we will receive your quote details directly. Or call 506-406-8787 now.</p>
         </div>
         <div class="container contact-grid reveal">
-          <form class="quote-form" id="ppc-form" method="POST" action="https://script.google.com/macros/s/AKfycbw01UAvY0ZqqUjUsaXX0ZXLePeQJUnYf_aTn86TPiCFRpUHgpBep-mmtxXLaW5DFEvo/exec">
+          <form class="quote-form" id="ppc-form" method="POST" target="ppc-submit-frame" action="https://script.google.com/macros/s/AKfycbw01UAvY0ZqqUjUsaXX0ZXLePeQJUnYf_aTn86TPiCFRpUHgpBep-mmtxXLaW5DFEvo/exec">
             <input type="hidden" name="business" value="PPC" />
             <input type="hidden" name="form_key" value="hlc_ppc_secure_2026" />
             <input type="text" name="_honey" class="form-honey" tabindex="-1" autocomplete="off" aria-hidden="true" />
@@ -385,36 +385,45 @@
             <button class="btn btn-primary" type="submit">Send quote request</button>
           </form>
           <script>
-            document.addEventListener("DOMContentLoaded", () => {
-              const form = document.querySelector("#ppc-form");
+            (() => {
+              const form = document.getElementById("ppc-form");
 
               if (!form) return;
+              if (form.dataset.submitHandlerAttached === "true") return;
+
+              form.dataset.submitHandlerAttached = "true";
 
               form.addEventListener("submit", async (e) => {
                 e.preventDefault();
 
                 const formData = new FormData(form);
+                const submitButton = form.querySelector('button[type="submit"]');
+
+                if (submitButton) {
+                  submitButton.disabled = true;
+                  submitButton.textContent = "Sending...";
+                }
 
                 try {
-                  const res = await fetch(form.action, {
+                  await fetch(form.action, {
                     method: "POST",
                     body: formData,
+                    mode: "no-cors",
                   });
 
-                  const result = await res.json();
-
-                  if (result.success) {
-                    form.reset();
-                    alert("Thanks! Your request has been submitted.");
-                  } else {
-                    throw new Error(result.error);
-                  }
+                  form.reset();
+                  window.location.assign("/thank-you.html");
                 } catch (err) {
                   alert("Something went wrong. Please call 506-406-8787.");
+                  if (submitButton) {
+                    submitButton.disabled = false;
+                    submitButton.textContent = "Send quote request";
+                  }
                 }
               });
-            });
+            })();
           </script>
+          <iframe class="form-submit-frame" name="ppc-submit-frame" title="PPC form submission"></iframe>
           <div class="contact-panel">
             <div>
               <span class="panel-label">Call</span>
@@ -484,6 +493,6 @@
     <a href="tel:+15064068787" class="sticky-call" aria-label="Call Pressure Point Cleaning">Call 506-406-8787</a>
     <a href="#top" class="back-to-top" id="back-to-top" aria-label="Back to top">↑</a>
   </div>
-  <script src="script.js?v=1.2"></script>
+  <script src="script.js?v=1.3"></script>
 </body>
 </html>
