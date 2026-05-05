@@ -748,6 +748,26 @@ button:focus-visible {
   font-weight: 700;
 }
 
+.privacy-note {
+  padding: 0.95rem 1rem;
+  border: 1px solid rgba(60, 141, 255, 0.28);
+  border-radius: 14px;
+  background: rgba(16, 55, 101, 0.78);
+  color: #eef6ff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.privacy-note a {
+  color: inherit;
+  font-weight: 800;
+}
+
+[data-theme="light"] .privacy-note {
+  background: rgba(220, 234, 255, 0.96);
+  border-color: rgba(37, 99, 235, 0.22);
+  color: #17325d;
+}
+
 .form-guidance {
   display: grid;
   gap: 0.45rem;
