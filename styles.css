@@ -706,10 +706,28 @@ button:focus-visible {
   padding: 0.95rem 1rem;
 }
 
+.quote-form select option {
+  background: #0e1628;
+  color: #e8eef7;
+}
+
+.quote-form select option:disabled {
+  color: #a7b6d0;
+}
+
 [data-theme="light"] .quote-form input,
 [data-theme="light"] .quote-form select,
 [data-theme="light"] .quote-form textarea {
   background: rgba(255, 255, 255, 0.72);
+}
+
+[data-theme="light"] .quote-form select option {
+  background: #ffffff;
+  color: #1a2845;
+}
+
+[data-theme="light"] .quote-form select option:disabled {
+  color: #4a5f7f;
 }
 
 .quote-form input:focus,
@@ -728,6 +746,17 @@ button:focus-visible {
 .form-note a {
   color: var(--text);
   font-weight: 700;
+}
+
+.form-guidance {
+  display: grid;
+  gap: 0.45rem;
+  margin-top: -0.15rem;
+  line-height: 1.55;
+}
+
+.form-guidance p {
+  margin: 0;
 }
 
 .form-success {
@@ -789,6 +818,10 @@ button:focus-visible {
 .contact-panel a {
   color: var(--text);
   font-weight: 600;
+}
+
+.contact-panel a.btn-primary {
+  color: #fff;
 }
 
 .contact-note {
