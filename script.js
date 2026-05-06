@@ -182,6 +182,13 @@ document.addEventListener("DOMContentLoaded", () => {
           throw new Error(result.error || "Submission failed");
         }
 
+        if (typeof window.ppcTrack === "function") {
+          window.ppcTrack("form_submission", {
+            form_id: form.id,
+            location: window.location.pathname,
+          });
+        }
+
         form.reset();
         window.location.assign("/thank-you.html");
       } catch (error) {
