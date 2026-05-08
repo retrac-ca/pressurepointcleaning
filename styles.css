@@ -1205,6 +1205,290 @@ button:focus-visible {
   margin-top: 2rem;
 }
 
+/* QR landing pages */
+
+.qr-page {
+  padding-bottom: 0;
+}
+
+.qr-header .container {
+  width: min(100%, calc(1120px + 2rem));
+}
+
+.qr-header-grid {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 0;
+}
+
+.qr-header-actions,
+.qr-actions,
+.qr-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.qr-header-actions .btn {
+  min-height: 44px;
+  padding: 0.75rem 1.05rem;
+}
+
+.qr-hero {
+  padding: clamp(2rem, 6vw, 5rem) 0 3rem;
+}
+
+.qr-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.72fr);
+  gap: 2rem;
+  align-items: center;
+}
+
+.qr-hero-copy {
+  display: grid;
+  gap: 1rem;
+}
+
+.qr-hero h1 {
+  max-width: 820px;
+  font-size: clamp(2.55rem, 8vw, 5.15rem);
+  line-height: 0.96;
+}
+
+.qr-hero p,
+.qr-form-intro p,
+.qr-cta-panel p {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  line-height: 1.75;
+}
+
+.qr-hero-copy > p {
+  max-width: 650px;
+  font-size: clamp(1.1rem, 3vw, 1.35rem);
+}
+
+.qr-hero-card,
+.qr-info-card,
+.qr-service-card,
+.qr-contact-panel,
+.qr-form,
+.qr-cta-panel {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.qr-hero-card {
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.qr-hero-card img {
+  height: clamp(260px, 38vw, 430px);
+  border-radius: 0;
+  object-fit: cover;
+}
+
+.qr-hero-card div {
+  display: grid;
+  gap: 0.45rem;
+  padding: 1.25rem;
+}
+
+.qr-hero-card strong {
+  font-size: 1.15rem;
+}
+
+.qr-hero-card p {
+  margin: 0;
+  font-size: 0.98rem;
+}
+
+.qr-trust-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.45rem;
+}
+
+.qr-trust-strip span,
+.qr-area-grid span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 0.55rem 0.8rem;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--text);
+  font-weight: 800;
+}
+
+.qr-form-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.72fr) minmax(0, 1fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+.qr-form-intro {
+  display: grid;
+  gap: 1rem;
+  position: sticky;
+  top: 6.5rem;
+}
+
+.qr-contact-panel {
+  display: grid;
+  gap: 0.6rem;
+  padding: 1.25rem;
+}
+
+.qr-contact-panel a {
+  color: var(--text);
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+.qr-form {
+  padding: 1.25rem;
+}
+
+.qr-area-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.qr-card-grid,
+.qr-services-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.qr-card-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.qr-services-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.qr-info-card,
+.qr-service-card {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  padding: 1.4rem;
+}
+
+.qr-service-card {
+  grid-template-rows: auto auto 1fr auto;
+  align-content: stretch;
+}
+
+.qr-info-card h2,
+.qr-service-card h3 {
+  font-size: 1.2rem;
+}
+
+.qr-service-card strong {
+  color: var(--accent);
+  font-size: 0.95rem;
+}
+
+.qr-info-card p,
+.qr-service-card p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.qr-card-actions {
+  align-self: end;
+}
+
+.qr-card-actions .btn {
+  flex: 1 1 90px;
+  padding-inline: 1rem;
+}
+
+.qr-cta-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1.25rem;
+  align-items: center;
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.qr-cta-panel h2 {
+  margin: 0.4rem 0;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+}
+
+.qr-footer {
+  padding-bottom: 2rem;
+}
+
+.qr-footer-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+}
+
+.qr-footer-inner p {
+  margin: 0;
+  color: #c7d7f2;
+  line-height: 1.65;
+}
+
+.qr-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+}
+
+.qr-footer-links a {
+  color: #dbeafe;
+  font-weight: 750;
+}
+
+.qr-sticky-cta {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 70;
+  display: none;
+  gap: 0.65rem;
+  padding: 0.75rem 1rem calc(0.75rem + env(safe-area-inset-bottom));
+  background: rgba(5, 10, 19, 0.94);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+}
+
+.qr-sticky-cta .btn {
+  flex: 1 1 0;
+  min-height: 48px;
+  padding: 0.85rem 1rem;
+}
+
+[data-theme="light"] .qr-sticky-cta {
+  background: rgba(240, 244, 251, 0.94);
+  border-top-color: rgba(37, 99, 235, 0.16);
+}
+
+[data-theme="light"] .qr-footer-inner p,
+[data-theme="light"] .qr-footer-links a {
+  color: var(--text-muted);
+}
+
 .reveal {
   opacity: 0;
   transform: translateY(28px);
@@ -1226,12 +1510,24 @@ button:focus-visible {
   .contact-grid,
   .trust-grid,
   .promise-grid,
-  .process-grid {
+  .process-grid,
+  .qr-hero-grid,
+  .qr-form-grid,
+  .qr-cta-panel {
     grid-template-columns: 1fr;
   }
 
   .stats-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .qr-services-grid,
+  .qr-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .qr-form-intro {
+    position: static;
   }
 }
 
@@ -1267,6 +1563,26 @@ button:focus-visible {
     height: 320px;
   }
 
+  .qr-page {
+    padding-bottom: 5rem;
+  }
+
+  .qr-header-grid {
+    align-items: flex-start;
+  }
+
+  .qr-header-actions {
+    justify-content: flex-end;
+  }
+
+  .qr-header-actions .btn-secondary {
+    display: none;
+  }
+
+  .qr-sticky-cta {
+    display: flex;
+  }
+
   .book-now-panel,
   .contact-grid,
   .footer-grid,
@@ -1300,8 +1616,48 @@ button:focus-visible {
 
   .hero-actions .btn,
   .btn-book-now,
-  .trust-btn {
+  .trust-btn,
+  .qr-actions .btn {
     width: 100%;
+  }
+
+  .qr-header-grid {
+    gap: 0.65rem;
+  }
+
+  .qr-header-actions .btn-primary {
+    padding: 0.72rem 0.9rem;
+    white-space: nowrap;
+  }
+
+  .qr-hero {
+    padding-top: 1.75rem;
+  }
+
+  .qr-hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .qr-hero-card img {
+    height: 250px;
+  }
+
+  .qr-form {
+    padding: 1rem;
+  }
+
+  .qr-services-grid,
+  .qr-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .qr-card-actions .btn {
+    flex-basis: 0;
+  }
+
+  .qr-footer-inner {
+    display: grid;
+    align-items: start;
   }
 
   .book-now-panel,
