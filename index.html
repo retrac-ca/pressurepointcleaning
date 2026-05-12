@@ -18,25 +18,39 @@
   <meta name="twitter:image" content="https://pressurepointcleaning.ca/images/ppc_hero_banner.jpeg" />
   <link rel="canonical" href="https://pressurepointcleaning.ca/" />
   <link rel="icon" href="images/favicon.webp" type="image/webp" />
-  <link rel="apple-touch-icon" href="images/ppc_monogram_logo.png" />
+  <link rel="apple-touch-icon" href="images/ppc_monogram_logo.webp" />
   <title>Pressure Point Cleaning | Grand Falls Pressure Washing</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=1.6" />
   <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem("ppc-theme-preference");
+        var theme = saved === "dark" || saved === "light"
+          ? saved
+          : ((new Date().getHours() >= 20 || new Date().getHours() < 6) ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", theme);
+      } catch (error) {}
+    })();
     window.PPC_TRACKING = {
       ga4MeasurementId: "",
       metaPixelId: ""
     };
   </script>
+  <link
+    rel="preload"
+    as="image"
+    href="images/ppc_hero_banner-720.jpeg"
+    imagesrcset="images/ppc_hero_banner-480.jpeg 480w, images/ppc_hero_banner-720.jpeg 720w, images/ppc_hero_banner-960.jpeg 960w, images/ppc_hero_banner.jpeg 1024w"
+    imagesizes="(max-width: 540px) calc(100vw - 2.5rem), (max-width: 1040px) min(640px, calc(100vw - 2.5rem)), 520px"
+    fetchpriority="high"
+  />
+  <link rel="stylesheet" href="styles.css?v=1.8" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "HomeAndConstructionBusiness",
       "name": "Pressure Point Cleaning",
       "url": "https://pressurepointcleaning.ca/",
-      "image": "https://pressurepointcleaning.ca/images/ppc_logo.png",
+      "image": "https://pressurepointcleaning.ca/images/ppc_hero_banner.jpeg",
       "telephone": "+1-506-406-8787",
       "email": "info@pressurepointcleaning.ca",
       "priceRange": "$$",
@@ -81,7 +95,7 @@
     <header class="site-header" id="site-header">
       <div class="container header-grid">
         <a class="brand" href="#top">
-          <img src="images/ppc_logo.png" alt="Pressure Point Cleaning logo" class="brand-logo brand-logo-header" />
+          <span class="brand-mark" aria-hidden="true">PPC</span>
           <div>
             <span class="brand-name">Pressure Point Cleaning</span>
             <span class="brand-sub">by Hanson Lawn Care</span>
@@ -124,7 +138,7 @@
               <a class="btn btn-secondary" href="#quote">Get Quote</a>
             </div>
             <div class="hero-brand-badge">
-              <img src="images/ppc_monogram_logo.png" alt="Pressure Point Cleaning brand badge" class="hero-badge-logo" />
+              <span class="hero-badge-logo" aria-hidden="true">PPC</span>
               <a href="https://hansonlawncare.ca/" target="_blank" rel="noreferrer">Family-owned pressure washing by Hanson Lawn Care →</a>
             </div>
             <div class="hero-badges">
@@ -136,7 +150,16 @@
           </div>
           <div class="hero-media">
             <div class="hero-card">
-              <img src="images/ppc_hero_banner.jpeg" alt="Pressure washing home exterior" />
+              <img
+                src="images/ppc_hero_banner-720.jpeg"
+                srcset="images/ppc_hero_banner-480.jpeg 480w, images/ppc_hero_banner-720.jpeg 720w, images/ppc_hero_banner-960.jpeg 960w, images/ppc_hero_banner.jpeg 1024w"
+                sizes="(max-width: 540px) calc(100vw - 2.5rem), (max-width: 1040px) min(640px, calc(100vw - 2.5rem)), 520px"
+                alt="Pressure washing home exterior"
+                width="720"
+                height="720"
+                fetchpriority="high"
+                decoding="async"
+              />
               <div class="hero-card-text">
                 <p>Residential and Commercial Pressure Washing</p>
               </div>
@@ -442,7 +465,7 @@
     <footer class="site-footer">
       <div class="container footer-grid">
         <div class="footer-branding">
-          <img src="images/ppc_monogram_logo.png" alt="Pressure Point Cleaning monogram" class="brand-logo brand-logo-footer" />
+          <img src="images/ppc_monogram_logo.webp" alt="Pressure Point Cleaning monogram" class="brand-logo brand-logo-footer" width="1024" height="1024" loading="lazy" decoding="async" />
           <div>
             <strong>Pressure Point Cleaning</strong>
             <p>by Hanson Lawn Care - Grand Falls, NB</p>
@@ -489,7 +512,7 @@
     <a href="tel:+15064068787" class="sticky-call" aria-label="Call Pressure Point Cleaning">Call 506-406-8787</a>
     <a href="#top" class="back-to-top" id="back-to-top" aria-label="Back to top">↑</a>
   </div>
-  <script src="tracking.js?v=1.0"></script>
-  <script src="script.js?v=1.5"></script>
+  <script src="tracking.js?v=1.1" defer></script>
+  <script src="script.js?v=1.6" defer></script>
 </body>
 </html>
