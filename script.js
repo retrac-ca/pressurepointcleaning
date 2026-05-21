@@ -20,8 +20,24 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  function readSavedTheme() {
+    try {
+      return localStorage.getItem(STORAGE_KEY);
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function saveTheme(theme) {
+    try {
+      localStorage.setItem(STORAGE_KEY, theme);
+    } catch (error) {
+      // Keep theme switching usable when storage is blocked.
+    }
+  }
+
   function initTheme() {
-    const saved = localStorage.getItem(STORAGE_KEY);
+    const saved = readSavedTheme();
     const theme = saved === "dark" || saved === "light" ? saved : detectTimeBasedTheme();
     applyTheme(theme);
   }
@@ -30,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
     themeToggle.addEventListener("click", () => {
       const current = html.getAttribute("data-theme") || detectTimeBasedTheme();
       const next = current === "dark" ? "light" : "dark";
-      localStorage.setItem(STORAGE_KEY, next);
+      saveTheme(next);
       applyTheme(next);
     });
   }
@@ -88,14 +104,35 @@ document.addEventListener("DOMContentLoaded", () => {
     "Saint-Andre": "For Saint-Andre and nearby areas, we clean siding, driveways, decks, fences, patios, walkways, and commercial entrances. Contact us with photos or surface details and we will follow up with a straightforward quote."
   };
 
+  let areaReturnFocus = null;
+
+  function getAreaFocusableElements() {
+    if (!areaModal) return [];
+
+    return Array.from(
+      areaModal.querySelectorAll(
+        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      )
+    ).filter((element) => !element.hidden);
+  }
+
   function openAreaModal(town) {
     if (!areaModal || !areaModalTitle || !areaModalCopy) return;
 
+    const detail = areaDetails[town];
+    if (!detail) return;
+
+    areaReturnFocus = document.activeElement;
     areaModalTitle.textContent = town;
-    areaModalCopy.textContent = areaDetails[town] || "";
+    areaModalCopy.textContent = detail;
     areaModal.classList.add("open");
     areaModal.setAttribute("aria-hidden", "false");
     document.body.classList.add("modal-open");
+
+    const focusableElements = getAreaFocusableElements();
+    if (focusableElements.length) {
+      focusableElements[0].focus();
+    }
   }
 
   function closeAreaModal() {
@@ -104,6 +141,10 @@ document.addEventListener("DOMContentLoaded", () => {
     areaModal.classList.remove("open");
     areaModal.setAttribute("aria-hidden", "true");
     document.body.classList.remove("modal-open");
+
+    if (areaReturnFocus instanceof HTMLElement) {
+      areaReturnFocus.focus();
+    }
   }
 
   areaPills.forEach((pill) => {
@@ -115,23 +156,48 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") closeAreaModal();
+    if (!areaModal || !areaModal.classList.contains("open")) return;
+
+    if (event.key === "Escape") {
+      closeAreaModal();
+      return;
+    }
+
+    if (event.key !== "Tab") return;
+
+    const focusableElements = getAreaFocusableElements();
+    if (!focusableElements.length) return;
+
+    const first = focusableElements[0];
+    const last = focusableElements[focusableElements.length - 1];
+
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
   });
 
   const revealItems = document.querySelectorAll(".reveal");
   if (revealItems.length) {
-    const observer = new IntersectionObserver(
-      (entries, obs) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            obs.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.15, rootMargin: "0px 0px -80px 0px" }
-    );
-    revealItems.forEach((item) => observer.observe(item));
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        (entries, obs) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              obs.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.15, rootMargin: "0px 0px -80px 0px" }
+      );
+      revealItems.forEach((item) => observer.observe(item));
+    } else {
+      revealItems.forEach((item) => item.classList.add("visible"));
+    }
   }
 
   document.querySelectorAll("img").forEach((img) => {
@@ -140,6 +206,24 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   const forms = document.querySelectorAll("#hlc-form, #ppc-form");
+  const FORM_TIMEOUT_MS = 15000;
+
+  function hideMessage(message) {
+    if (message) {
+      message.hidden = true;
+    }
+  }
+
+  function showError(message) {
+    const copy = "Something went wrong. Please call or text 506-406-8787.";
+
+    if (message) {
+      message.textContent = copy;
+      message.hidden = false;
+    } else {
+      alert(copy);
+    }
+  }
 
   forms.forEach((form) => {
     form.addEventListener("submit", async (event) => {
@@ -163,23 +247,45 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       if (successMessage) {
-        successMessage.style.display = "none";
+        hideMessage(successMessage);
       }
 
       if (errorMessage) {
-        errorMessage.style.display = "none";
+        hideMessage(errorMessage);
       }
 
+      const controller = "AbortController" in window ? new AbortController() : null;
+      const timeoutId = controller
+        ? window.setTimeout(() => controller.abort(), FORM_TIMEOUT_MS)
+        : null;
+
       try {
-        const response = await fetch(form.action, {
+        const requestOptions = {
           method: "POST",
           body: formData,
-        });
+          credentials: "omit",
+          referrerPolicy: "strict-origin-when-cross-origin",
+        };
 
-        const result = await response.json();
+        if (controller) {
+          requestOptions.signal = controller.signal;
+        }
 
-        if (!result.success) {
-          throw new Error(result.error || "Submission failed");
+        const response = await fetch(form.action, requestOptions);
+
+        if (!response.ok) {
+          throw new Error(`Submission request failed with status ${response.status}`);
+        }
+
+        let result;
+        try {
+          result = await response.json();
+        } catch (error) {
+          throw new Error("Submission response was not valid JSON");
+        }
+
+        if (!result || result.success !== true) {
+          throw new Error((result && result.error) || "Submission failed");
         }
 
         if (typeof window.ppcTrack === "function") {
@@ -192,14 +298,12 @@ document.addEventListener("DOMContentLoaded", () => {
         form.reset();
         window.location.assign("/thank-you.html");
       } catch (error) {
-        if (errorMessage) {
-          errorMessage.textContent =
-            "Something went wrong. Please call or text 506-406-8787.";
-          errorMessage.style.display = "block";
-        } else {
-          alert("Something went wrong. Please call or text 506-406-8787.");
-        }
+        showError(errorMessage);
       } finally {
+        if (timeoutId) {
+          window.clearTimeout(timeoutId);
+        }
+
         if (submitButton) {
           submitButton.disabled = false;
           submitButton.textContent = originalButtonText;

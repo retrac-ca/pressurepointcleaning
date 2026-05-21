@@ -859,6 +859,10 @@ button:focus-visible {
   margin: 0;
 }
 
+.form-note[hidden] {
+  display: none;
+}
+
 .form-success {
   margin-top: 0;
   padding: 0.85rem 1rem;

@@ -54,6 +54,8 @@
   }
 
   document.addEventListener("click", function (event) {
+    if (!(event.target instanceof Element)) return;
+
     var link = event.target.closest("a, button");
     if (!link) return;
 

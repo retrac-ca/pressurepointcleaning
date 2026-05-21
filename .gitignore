@@ -1,0 +1,12 @@
+# Local editor and OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
+
+# Local test artifacts
+*.log
+coverage/
+.cache/
+.playwright/
